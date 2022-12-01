@@ -1,4 +1,4 @@
-/* Estilo de los tabs de la página */
+/* Estilo para las etiquetes de texto*/
  h1{
   font-family: Arial;
  }
@@ -42,6 +42,7 @@
   margin-top: 5px;
  }
 
+/* Estilo de los tabs de la página */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
