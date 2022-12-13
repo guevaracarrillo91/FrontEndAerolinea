@@ -60,6 +60,17 @@
   transition: 0.3s;
 }
 
+.LogOn{
+  float: right !important;
+}
+
+
+.tab button .LogOn{
+  float: right !important;
+}
+
+
+
 /* cambie el color del tab cuando se pone el puntero sobre el */
 .tab button:hover {
   background-color: #ddd;
@@ -134,4 +145,17 @@
 .centerBoton{
   margin-left: 39%;
   margin-top: 5%;
+}
+
+.Banner{
+  display:none;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+#Slider{
+  background-color: rgb(69 137 149);
+  color: #fff;
+  font-weight: bold;
 }

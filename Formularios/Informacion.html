@@ -13,12 +13,17 @@
     <form action="#">
         <!-- Tabs del encabezado de la página -->
         <div class="tab">
-            <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Inicio')">Inicio</button>
+            <button id="tbInicio" class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Inicio')">Inicio</button>
             <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Somos')">¿Quiénes somos?</button>
             <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Historia')">Historia</button>
             <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Contactenes')">Contactenos</button>
-            <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'LogIn')">LogIn</button>
+            <button class="LogOn" onclick="AccionesFormulario.AbrirTab(event, 'LogIn')">LogIn</button>
         </div>
+
+        <div id="Slider">
+            <p class="Banner">En Lowjet te recordamos nuestros<br>Vuelos con descuento</p>
+        </div>
+
 
         <!-- Contenido del tab Inicio -->
         <div id="Inicio" class="contenidotab">
@@ -171,5 +176,20 @@
         <script type="text/javascript" src="../JavaScript/Informacion.js"></script>
     </form>
 </body>
-
+<script>
+    var slideIndex = 0;
+    carousel();
+    
+    function carousel() {
+      var i;
+      var x = document.getElementsByClassName("Banner");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none"; 
+      }
+      slideIndex++;
+      if (slideIndex > x.length) {slideIndex = 1} 
+      x[slideIndex-1].style.display = "block"; 
+      setTimeout(carousel, 2000); 
+    }
+    </script>
 </html>
