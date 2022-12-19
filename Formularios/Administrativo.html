@@ -529,35 +529,36 @@
 
         <div id="Horarios" class="contenidotab">
             <label for="CodRuta">Seleccione la ruta</label>
-            <select name="Rutas" id="Rutas">
-                <option value="01">Costa Rica - Canada</option>
-                <option value="02">Estados Unidos - Costa Rica</option>
-                <option value="03">Francia - Costa Rica</option>
-                <option value="04">Panamá - Costa Rica</option>
+            <select name="Rutas" id="dpnRutas">
             </select><br><br>
 
             <label for="Dia">Ingrese el d&iacute;a</label>
-            <input type="date" value="2022-12-12" /><br><br>
+            <input type="date" value="2022-12-12" id="dtDia"/><br><br>
 
             <label for="HoraMinSali">Ingrese la hora de Salida</label>
-            <input type="time" name="eta"><br><br>
+            <input type="time" name="eta" class="without_ampm" id="tmHoraSalida"><br><br>
             <br>
 
             <label for="HoraLlegada">Ingrese la hora de llegada</label>
-            <input type="time" name="eta" class="without_ampm"><br><br>
-
+            <input type="time" name="eta" class="without_ampm" id="tmHoraLlegada" disabled><br><br>
+            <label id="idHorario" hidden></label>
             <table id="tblHorarios" class="table">
-                <tr>
-                    <th>Código Horario</th>
-                    <th>Código Ruta</th>
-                    <th>Día</th>
-                    <th>Hora</th>
-                    <th>Minuto</th>
-                    <th>Hora Llegada</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Código Horario</th>
+                        <th>Código Ruta</th>
+                        <th>Día</th>
+                        <th>Hora</th>
+                        <th>Minuto</th>
+                        <th>Hora Llegada</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                </tbody>
             </table><br><br>
 
-            <input type="submit" name="enviar" value="Enviar datos" />
+            <input type="submit" name="enviar" value="Enviar datos" id="btnEnviarHorarios" />
         </div>
 
         <div id="TipoAviones" class="contenidotab">
