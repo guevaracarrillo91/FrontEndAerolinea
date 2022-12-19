@@ -12,20 +12,24 @@
 <body>
     <!-- Tabs del encabezado de la página -->
     <div class="tab">
-        <button id="tbInicio" class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Rutas')">Mantenimiento de Rutas</button>
-        <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Horarios')">Mantenimiento de Horarios</button>
-        <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'TipoAviones')">Mantenimiento de Tipo Aviones</button>
-        <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Aviones')">Mantenimiento de Aviones</button>
+        <button id="tbInicio" class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Rutas')">Mantenimiento de
+            Rutas</button>
+        <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Horarios')">Mantenimiento de
+            Horarios</button>
+        <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'TipoAviones')">Mantenimiento de Tipo
+            Aviones</button>
+        <button class="linktabs" onclick="AccionesFormulario.AbrirTab(event, 'Aviones')">Mantenimiento de
+            Aviones</button>
         <button class="LogOut" onclick="AccionesFormulario.CerrarSesion()">Cerrar Sesión</button>
     </div>
     <form action="#">
         <!-- Contenido del tab Inicio -->
         <div id="Rutas" class="contenidotab">
             <label for="Nombre">Nombre</label>
-            <input type="text" name="Nombre" id="Nombre" placeholder="Ingrese el nombre de la ruta" required />
+            <input type="text" name="Nombre" id="Nombre" placeholder="Ingrese el nombre de la ruta" required /><br><br>
 
             <label for="PaisOrigen">Pais Origen</label>
-            <select name="pais">
+            <select name="pais" id="PaisOrigen">
                 <option value="AF">Afganistán</option>
                 <option value="AL">Albania</option>
                 <option value="DE">Alemania</option>
@@ -260,10 +264,10 @@
                 <option value="YU">Yugoslavia</option>
                 <option value="ZM">Zambia</option>
                 <option value="ZW">Zimbabue</option>
-            </select>
+            </select><br><br>
 
             <label for="PaisDestino">Pais Destino</label>
-            <select name="pais">
+            <select name="pais" id="PaisDestino">
                 <option value="AF">Afganistán</option>
                 <option value="AL">Albania</option>
                 <option value="DE">Alemania</option>
@@ -498,10 +502,25 @@
                 <option value="YU">Yugoslavia</option>
                 <option value="ZM">Zambia</option>
                 <option value="ZW">Zimbabue</option>
-            </select>
+            </select><br><br>
 
             <label for="Duracion">Duración de la ruta</label>
-            <input type="time" name="eta">
+            <input type="time" name="eta" id="Duracion" class="without_ampm"><br><br>
+            <label id="idRuta" hidden></label>
+            <table id="tblRutas" class="table">
+                <thead>
+                    <tr>
+                        <th>Código Ruta</th>
+                        <th>Nombre Ruta</th>
+                        <th>País Origen</th>
+                        <th>País Destino</th>
+                        <th>Duración Horas</th>
+                        <th>Duración Minutos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>                
+            </table><br><br>
 
             <input type="submit" name="enviar" value="Enviar datos" />
         </div>
@@ -519,11 +538,22 @@
             <input type="date" value="2022-12-12" /><br><br>
 
             <label for="HoraMinSali">Ingrese la hora de Salida</label>
-            <input type="time" name="eta"><br>
+            <input type="time" name="eta"><br><br>
             <br>
 
             <label for="HoraLlegada">Ingrese la hora de llegada</label>
-            <input type="time" name="eta">
+            <input type="time" name="eta" class="without_ampm"><br><br>
+
+            <table id="tblHorarios" class="table">
+                <tr>
+                    <th>Código Horario</th>
+                    <th>Código Ruta</th>
+                    <th>Día</th>
+                    <th>Hora</th>
+                    <th>Minuto</th>
+                    <th>Hora Llegada</th>
+                </tr>
+            </table><br><br>
 
             <input type="submit" name="enviar" value="Enviar datos" />
         </div>
@@ -533,21 +563,33 @@
             <input type="text" name="Anno" id="Anno" placeholder="Ingrese el a&ntilde;o del avi&oacute;n" required />
 
             <label for="Modelo">Modelo del avi&oacute;n</label>
-            <input type="text" name="Modelo" id="Modelo" placeholder="Ingrese el modelo del avi&oacute;n" required />
+            <input type="text" name="Modelo" id="Modelo" placeholder="Ingrese el modelo del avi&oacute;n"
+                required /><br><br>
 
             <label for="Marca">Marca del avi&oacute;n</label>
             <input type="text" name="Marca" id="Marca" placeholder="Ingrese la Marca" required />
 
             <label for="CantPasajeros">Cantidad de pasajeros</label>
             <input type="text" name="CantPasajeros" id="CantPasajeros"
-                placeholder="Ingrese la cantiad de pasajeros del avi&oacute;n" required />
+                placeholder="Ingrese la cantiad de pasajeros del avi&oacute;n" required /><br><br>
 
             <label for="CantFilas">Cantidad de filas del avi&oacute;n</label>
             <input type="text" name="CantFilas" id="CantFilas" placeholder="Ingrese la cantidad de filas" required />
 
             <label for="CantAsientFila">Cantidad de asientos por fila</label>
             <input type="text" name="CantAsientFila" id="CantAsientFila"
-                placeholder="Ingrese la cantidad de asientos por filas" required />
+                placeholder="Ingrese la cantidad de asientos por filas" required /><br><br>
+
+            <table id="tblTipoAviones" class="table">
+                <tr>
+                    <th>Código Avión</th>
+                    <th>Año</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Cantidad Pasajeros</th>
+                    <th>Cantidad Asientos Fila</th>
+                </tr>
+            </table><br><br>
 
             <input type="submit" name="enviar" value="Enviar datos" />
         </div>
@@ -584,10 +626,22 @@
                 <option value="04">Militar</option>
             </select><br><br>
 
+            <table id="tblAviones" class="table">
+                <tr>
+                    <th>Código Avión</th>
+                    <th>Código Ruta</th>
+                    <th>Día</th>
+                    <th>Hora</th>
+                    <th>Minuto</th>
+                    <th>Hora Llegada</th>
+                </tr>
+            </table><br><br>
+
             <input type="submit" name="enviar" value="Enviar datos" />
         </div>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> 
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../JavaScript/Administrativo.js"></script>
     </form>
 </body>

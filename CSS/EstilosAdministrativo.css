@@ -152,7 +152,7 @@ div {
 }
 
 form {
-  width: 20%;
+  width: 70%;
   padding: 16px;
   border-radius: 10px;
   margin: auto;
@@ -161,9 +161,10 @@ form {
 }
 
 form label {
-  width: 72px;
+  width: 180px;
   font-weight: bold;
   display: inline-block;
+  margin-left: 5%;
 }
 
 form input[type="text"],
@@ -178,7 +179,7 @@ form input[type="email"] {
 }
 
 form input[type="submit"] {
-  width: 100%;
+  width: 15%;
   padding: 8px 16px;
   margin-top: 32px;
   border: 1px solid #000;
@@ -186,10 +187,24 @@ form input[type="submit"] {
   display: block;
   color: #fff;
   background-color: #000;
+  margin: auto;
 }
 
 form input[type="submit"]:hover {
   cursor: pointer;
+}
+
+.without_ampm::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+input[type=time]::-webkit-clear-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance:none;
+  appearance: none;
+  margin: -10px; 
 }
 
 textarea {
@@ -201,4 +216,46 @@ textarea {
   margin: 8px 0;
   resize: none;
   display: block;
+}
+
+.table {
+  margin: auto;
+  width: 100%;
+}
+
+
+table {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 12px;
+  margin: 45px;
+  width: 480px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+th {
+  font-size: 13px;
+  font-weight: normal;
+  padding: 8px;
+  background: #b9c9fe;
+  border-top: 4px solid #aabcfe;
+  border-bottom: 1px solid #fff;
+  color: #039;
+}
+
+td {
+  padding: 8px;
+  background: #e8edff;
+  border-bottom: 1px solid #fff;
+  color: #669;
+  border-top: 1px solid transparent;
+}
+
+tr{
+  text-align: center;
+}
+
+tr:hover td {
+  background: #d0dafd;
+  color: #339;
 }
