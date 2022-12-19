@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="../CSS/EstilosAdministrativo.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -505,7 +506,7 @@
             </select><br><br>
 
             <label for="Duracion">Duración de la ruta</label>
-            <input type="time" name="eta" id="Duracion" class="without_ampm"><br><br>
+            <input type="time" name="eta" id="Duracion" class="without_ampm" placeholder="Ingres la duración de la ruta" required><br><br>
             <label id="idRuta" hidden></label>
             <table id="tblRutas" class="table">
                 <thead>
@@ -516,13 +517,14 @@
                         <th>País Destino</th>
                         <th>Duración Horas</th>
                         <th>Duración Minutos</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>                
             </table><br><br>
 
-            <input type="submit" name="enviar" value="Enviar datos" />
+            <input type="submit" name="enviar" value="Enviar datos" id="btnEnviarRutas"/>
         </div>
 
         <div id="Horarios" class="contenidotab">
@@ -637,12 +639,13 @@
                 </tr>
             </table><br><br>
 
-            <input type="submit" name="enviar" value="Enviar datos" />
+            <input type="submit" name="enviar" value="Enviar datos"/>
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> 
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../JavaScript/Administrativo.js"></script>
+        <script type="text/javascript" src="../JavaScript/General.js"></script>
     </form>
 </body>
 

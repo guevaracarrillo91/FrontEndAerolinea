@@ -1,19 +1,28 @@
 var rutaBaseApiRutas = 'https://localhost:7054/Rutas/'
 var rutaBaseApiHorarios = 'https://localhost:7054/Horarios/'
 var rutaBaseApiAviones = 'https://localhost:7054/Aviones/'
-
-
+var modificar = false;
 
 $(document).ready(function () {
     var evt;
     var seccion;
+    modificar = false;
     AccionesFormulario.AbrirTab(evt, seccion);
     AccionesFormulario.ActivarTabPrincipal();
     AccionesFormulario.ObtenerRutas();
+    document.getElementById("Nombre").disabled = false;
+
+    $("#btnEnviarRutas").click(function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        AccionesFormulario.EnviarDatosRutas();
+    });
+
 });
 
 var AccionesFormulario = {
 
+    //#region Métodos Generales
     ActivarTabPrincipal: function () {
         document.getElementById("tbInicio").className += " active";
         document.getElementById("Rutas").style.display = "block";
@@ -51,7 +60,9 @@ var AccionesFormulario = {
     CerrarSesion: function () {
         window.location.replace("../Formularios/Informacion.html");
     },
+    //#endregion Métodos Generales
 
+    //#region Métodos Rutas
     ObtenerRutas: function () {
         var datos = {
             nombreParametro: ""
@@ -62,9 +73,9 @@ var AccionesFormulario = {
 
                     //Se obtiene la tabla por id pero medio del DOM
                     var tabla = document.getElementById("tblRutas");
-                    var tblCuerpo=tabla.getElementsByTagName("tbody")[0];
+                    var tblCuerpo = tabla.getElementsByTagName("tbody")[0];
 
-                    for (var i = 0; i < data.objetoRespuesta.length; i++) {                                               
+                    for (var i = 0; i < data.objetoRespuesta.length; i++) {
 
                         //Se crea la fila de la tabla
                         var linea = document.createElement("tr");
@@ -76,14 +87,20 @@ var AccionesFormulario = {
                         var paisDestino = document.createElement("td");
                         var duracionHoras = document.createElement("td");
                         var duracionMinutos = document.createElement("td");
+                        var basurero = document.createElement("td");
+                        var icon = document.createElement("i");
 
                         //Se llenan las columnas
-                        var tCodigoRuta = document.createTextNode(data.objetoRespuesta[i].codigoRuta)
-                        var tNombreRuta = document.createTextNode(data.objetoRespuesta[i].nombre)
-                        var tPaisOrigen = document.createTextNode(data.objetoRespuesta[i].paisOrigen)
-                        var tPaisDestino = document.createTextNode(data.objetoRespuesta[i].paisDestino)
-                        var tDuracionHoras = document.createTextNode(data.objetoRespuesta[i].duracionHoras)
-                        var tDuracionMinutos = document.createTextNode(data.objetoRespuesta[i].duracionMinutos)
+                        var tCodigoRuta = document.createTextNode(data.objetoRespuesta[i].codigoRuta);
+                        var tNombreRuta = document.createTextNode(data.objetoRespuesta[i].nombre);
+                        var tPaisOrigen = document.createTextNode(data.objetoRespuesta[i].paisOrigen);
+                        var tPaisDestino = document.createTextNode(data.objetoRespuesta[i].paisDestino);
+                        var tDuracionHoras = document.createTextNode(data.objetoRespuesta[i].duracionHoras);
+                        var tDuracionMinutos = document.createTextNode(data.objetoRespuesta[i].duracionMinutos);
+                        var tBasurero = document.createElement("button");
+                        tBasurero.type = "button";
+                        icon.className = "fa fa-trash";
+                        tBasurero.appendChild(icon);
 
                         //Se agrega el contenido a la tabla
                         codigoRuta.appendChild(tCodigoRuta);
@@ -92,6 +109,8 @@ var AccionesFormulario = {
                         paisDestino.appendChild(tPaisDestino);
                         duracionHoras.appendChild(tDuracionHoras);
                         duracionMinutos.appendChild(tDuracionMinutos);
+                        basurero.appendChild(tBasurero);
+                        basurero.setAttribute('onclick', 'AccionesFormulario.EliminarRutas(event)');
 
                         linea.appendChild(codigoRuta);
                         linea.appendChild(nombreRuta);
@@ -99,7 +118,8 @@ var AccionesFormulario = {
                         linea.appendChild(paisDestino);
                         linea.appendChild(duracionHoras);
                         linea.appendChild(duracionMinutos);
-                        linea.setAttribute('ondblclick','AccionesFormulario.LlenarCampos(event)');
+                        linea.appendChild(basurero);
+                        linea.setAttribute('ondblclick', 'AccionesFormulario.LlenarCamposRutas(event)');
                         tblCuerpo.appendChild(linea);
                     }
                 }
@@ -107,43 +127,95 @@ var AccionesFormulario = {
         })
     },
 
-    LlenarCampos:function(evt){
+    LlenarCamposRutas: function (evt) {
 
         if (evt !== null && evt !== undefined) {
-            alert(evt.currentTarget.childNodes[0].textContent);
-        }
+            document.getElementById("idRuta").value = evt.currentTarget.childNodes[0].textContent;
+            document.getElementById("Nombre").value = evt.currentTarget.childNodes[1].textContent;
 
-        document.getElementById("idRuta").value=evt.currentTarget.childNodes[0].textContent;
-        document.getElementById("Nombre").value=evt.currentTarget.childNodes[1].textContent;
-
-        for(var i=0;i<document.getElementById("PaisOrigen").length;i++){
-            if(document.getElementById("PaisOrigen").options[i].text===evt.currentTarget.childNodes[2].textContent){
-                document.getElementById("PaisOrigen").selectedIndex=i;
-                break;
+            for (var i = 0; i < document.getElementById("PaisOrigen").length; i++) {
+                if (document.getElementById("PaisOrigen").options[i].text === evt.currentTarget.childNodes[2].textContent) {
+                    document.getElementById("PaisOrigen").selectedIndex = i;
+                    break;
+                }
             }
-        }
 
-        for(var i=0;i<document.getElementById("PaisDestino").length;i++){
-            if(document.getElementById("PaisDestino").options[i].text===evt.currentTarget.childNodes[3].textContent){
-                document.getElementById("PaisDestino").selectedIndex=i;
-                break;
+            for (var i = 0; i < document.getElementById("PaisDestino").length; i++) {
+                if (document.getElementById("PaisDestino").options[i].text === evt.currentTarget.childNodes[3].textContent) {
+                    document.getElementById("PaisDestino").selectedIndex = i;
+                    break;
+                }
             }
+
+            var hora = evt.currentTarget.childNodes[4].textContent.length < 2 ? "0" + evt.currentTarget.childNodes[4].textContent : evt.currentTarget.childNodes[4].textContent;
+            var minutos = evt.currentTarget.childNodes[5].textContent.length < 2 ? "0" + evt.currentTarget.childNodes[5].textContent : evt.currentTarget.childNodes[5].textContent;
+
+            document.getElementById("Duracion").value = hora + ":" + minutos;
+            document.getElementById("idRuta").disabled = true;
+            modificar = true;
         }
 
-        var hora=evt.currentTarget.childNodes[4].textContent.length < 2 ? "0" + evt.currentTarget.childNodes[4].textContent : evt.currentTarget.childNodes[4].textContent;
-        var minutos=evt.currentTarget.childNodes[5].textContent .length < 2 ? "0" + evt.currentTarget.childNodes[5].textContent : evt.currentTarget.childNodes[5].textContent;
-
-        document.getElementById("Duracion").value=hora +":"+ minutos;
-        
-
-        if(document.getElementById("tblRutas_length")!==null){
+        if (document.getElementById("tblRutas_length") !== null) {
             document.getElementById("tblRutas_length").remove();
             document.getElementById("tblRutas_info").remove();
             document.getElementById("tblRutas_paginate").remove();
             document.getElementById("tblRutas_filter").remove();
-        }        
+        }
     },
 
+    EliminarRutas: function (evt) {
 
+        var id = value = evt.currentTarget;
 
+        General.delete(rutaBaseApiRutas + id.parentNode.childNodes[0].textContent, function (data, status) {
+            if (status == 'success') {
+                window.location.reload();
+            }
+        })
+    },
+
+    EnviarDatosRutas: function () {
+        if (document.getElementById("Nombre").value == "") {
+            alert("Por favor ingrese un nombre para la ruta");
+        }
+        else if (document.getElementById("Duracion").value == "") {
+            alert("Por favor ingrese la duración de la ruta");
+        }
+        else {
+            var tiempo = document.getElementById("Duracion").value;
+            var [horas, minutos] = tiempo.split(":");
+            if (modificar) {
+                General.put(rutaBaseApiRutas + 'ModificarRuta/',
+                    {
+                        CodigoRuta: document.getElementById("idRuta").value,
+                        Nombre: document.getElementById("Nombre").value,
+                        PaisOrigen: $("#PaisOrigen option:selected").text(),
+                        PaisDestino: $("#PaisDestino option:selected").text(),
+                        DuracionHoras: horas,
+                        DuracionMinutos: minutos
+                    },
+                    function (data, success, xhr) {
+                        if (success == 'success') {
+                            window.location.reload();
+                        }
+                    });
+            }
+            else {
+                General.post(rutaBaseApiRutas + 'RegistrarRuta/',
+                    {
+                        CodigoRuta: document.getElementById("idRuta").value,
+                        Nombre: document.getElementById("Nombre").value,
+                        PaisOrigen: $("#PaisOrigen option:selected").text(),
+                        PaisDestino: $("#PaisDestino option:selected").text(),
+                        DuracionHoras: horas,
+                        DuracionMinutos: minutos
+                    },
+                    function (data, success, xhr) {
+                        if (success == 'success') {
+                            window.location.reload();
+                        }
+                    });
+            }
+        }
+    }
 };
